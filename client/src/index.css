@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_div {
+  max-width: 500px;
+  padding: 20px;
+  height: max-content;
+  background-color: rgba(0, 128, 0, 0.389);
+}
+
+.main_div > h1 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.product_name {
+  font-size: 2rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: blue;
+}
