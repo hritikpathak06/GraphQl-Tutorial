@@ -2,6 +2,9 @@ const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./graphql/schema");
 const connectToMongoDB = require("./database/connection");
+const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
+const cookieParser = require("cookie-parser");
 
 async function startServer() {
   connectToMongoDB();
@@ -17,6 +20,15 @@ async function startServer() {
 
   // Define a port
   const PORT = process.env.PORT || 4000;
+
+  // Middleware
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+
+  // Routes
+  app.use("/api/v1/product", productRoutes);
+  app.use("/api/v1/user", userRoutes);
 
   // Start the Express server
   app.listen(PORT, () => {
