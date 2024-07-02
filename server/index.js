@@ -4,6 +4,7 @@ const { typeDefs, resolvers } = require("./graphql/schema");
 const connectToMongoDB = require("./database/connection");
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
+const lectureRoutes = require("./routes/lectureRoutes");
 const cookieParser = require("cookie-parser");
 
 async function startServer() {
@@ -29,6 +30,7 @@ async function startServer() {
   // Routes
   app.use("/api/v1/product", productRoutes);
   app.use("/api/v1/user", userRoutes);
+  app.use("/api/v1/lecture", lectureRoutes);
 
   // Start the Express server
   app.listen(PORT, () => {

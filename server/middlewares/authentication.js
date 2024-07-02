@@ -12,10 +12,10 @@ exports.isAuthenticated = async (req, res, next) => {
       });
     }
 
-    console.log("User Toekn: ",userToken)
+    // console.log("User Toekn: ",userToken)
 
     const decoded = jwt.verify(userToken, "ANANBAHGGFADARDFRAA");
-    console.log("Decoded data: ",decoded)
+    // console.log("Decoded data: ",decoded)
     const user = await User.findById(decoded._id);
     if (!user) {
       return res.status(401).json({

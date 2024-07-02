@@ -1,6 +1,7 @@
 const { generateToken } = require("../helpers/generateToken");
 const User = require("../models/userModel");
 
+// **********************************// REST API**********************************
 exports.registerUser = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
@@ -95,5 +96,39 @@ exports.getAllUser = async (req, res) => {
       success: false,
       message: "Intenal Server Error",
     });
+  }
+};
+
+// GRAPHQL API************************************
+exports.getMyProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user);
+    return res.json(user);
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Intenal Server Error",
+    });
+  }
+};
+
+exports.createUserByGraphql = async (firstName, lastName, email, password) => {
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new Error("User already exists with this email");
+    }
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
+
+    await newUser.save();
+    return newUser;
+  } catch (error) {
+    throw new Error("Error creating user: " + error.message);
   }
 };
